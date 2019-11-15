@@ -1,5 +1,4 @@
-﻿using System;
-using HBMarsRoverProject.Business.Abstracts;
+﻿using HBMarsRoverProject.Business.Abstracts;
 using HBMarsRoverProject.Entity;
 
 namespace HBMarsRoverProject.Business.Implementations

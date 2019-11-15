@@ -1,5 +1,4 @@
-﻿using System;
-using HBMarsRoverProject.Business.Implementations;
+﻿using HBMarsRoverProject.Business.Implementations;
 using NUnit.Framework;
 
 namespace HBMarsRoverProject.Test

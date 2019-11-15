@@ -1,8 +1,7 @@
 {
   "profiles": {
     "HbMarsRoverProject.ConsoleApp": {
-      "commandName": "Project",
-      "commandLineArgs": "auto"
+      "commandName": "Project"
     }
   }
 }

@@ -15,7 +15,16 @@ namespace HBMarsRoverProject.Business.Implementations
             };
         }
 
-     
+
+        public Plateau(int x,int y)
+        {
+            CurrentDimension = new Dimension
+            {
+                X = x,
+                Y = y
+            };
+        }
+
         public Dimension CurrentDimension { get; }
 
         public void Resize(int x,int y)

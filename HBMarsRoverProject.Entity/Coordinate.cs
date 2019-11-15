@@ -18,9 +18,6 @@ namespace HBMarsRoverProject.Entity
         public int Y { get; set; }
         public EnumDirection Direction { get; set; }
 
-        public override string ToString()
-        {
-            return $"{X} {Y} {Direction}";
-        }
+      
     }
 }

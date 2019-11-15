@@ -19,7 +19,7 @@ namespace HbMarsRoverProject.ConsoleApp
 
                 plateau.Resize(5, 5);
 
-                Rover rover = new Rover();
+                Rover rover = new Rover(plateau);
                 rover.Relocation(new Coordinate(1, 2, "N"));
 
                 do
@@ -29,10 +29,10 @@ namespace HbMarsRoverProject.ConsoleApp
                     switch (cki.Key)
                     {
                         case ConsoleKey.LeftArrow:
-                            rover.Turn(EnumRotation.Left);
+                            rover.TurnLeft();
                             break;
                         case ConsoleKey.RightArrow:
-                            rover.Turn(EnumRotation.Right);
+                            rover.TurnRight();
                             break;
                         case ConsoleKey.UpArrow:
                             rover.Move();
@@ -77,7 +77,7 @@ namespace HbMarsRoverProject.ConsoleApp
 
                 foreach (var item in roverList)
                 {
-                   Console.WriteLine(item.Run());
+                   Console.WriteLine(item.Run(plateau));
                 }
 
                   

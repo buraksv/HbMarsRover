@@ -1,4 +1,5 @@
 using System;
+using HBMarsRoverProject.Business.Abstracts;
 using HBMarsRoverProject.Business.Implementations;
 using HBMarsRoverProject.Entity;
 using NUnit.Framework;
@@ -7,7 +8,12 @@ namespace HBMarsRoverProject.Test
 {
     public class RoverTests
     {
-       
+        private readonly IPlateau _plateau;
+        public RoverTests()
+        {
+            _plateau=new Plateau();
+            _plateau.Resize(5,5);
+        }
 
 
         [SetUp]
@@ -20,7 +26,7 @@ namespace HBMarsRoverProject.Test
         [TestCase(1,2,"N")]
         public void Rover_RelocationTest(int x,int y,string direction)
         { 
-            Rover rover = new Rover();
+            Rover rover = new Rover(_plateau);
             rover.Relocation(new Coordinate(x, y, direction));
 
             var outputCoordinate = new Coordinate(x, y, direction);
@@ -31,14 +37,26 @@ namespace HBMarsRoverProject.Test
 
         [Test]
         [TestCase(1, 2, "N")]
-        public void Rover_TurnTest(int x, int y, string direction)
+        public void Rover_TurnRightTest(int x, int y, string direction)
         {
-            Rover rover = new Rover(x,y,direction);
+            Rover rover = new Rover(_plateau,x, y,direction);
              
 
-            rover.Turn(EnumRotation.Right);
+            rover.TurnRight();
 
             Assert.True(rover.CurrentCoordinate.Direction==EnumDirection.E);
+        }
+
+        [Test]
+        [TestCase(1, 2, "N")]
+        public void Rover_TurnLeftTest(int x, int y, string direction)
+        {
+            Rover rover = new Rover(_plateau,x, y, direction);
+
+
+            rover.TurnLeft();
+
+            Assert.True(rover.CurrentCoordinate.Direction == EnumDirection.W);
         }
 
         [Test]
@@ -46,7 +64,7 @@ namespace HBMarsRoverProject.Test
         public void Rover_MoveTest(int x, int y, string direction)
         {
 
-            Rover rover = new Rover(x, y ,direction);
+            Rover rover = new Rover(_plateau,x, y ,direction);
 
 
             rover.Move();
@@ -59,7 +77,7 @@ namespace HBMarsRoverProject.Test
         [TestCase(1, 2, "N")]
         public void Rover_CommandTest(int x, int y, string direction)
         {
-            Rover rover = new Rover(x, y, direction);
+            Rover rover = new Rover(_plateau,x, y, direction);
 
 
             rover.Command('L');
@@ -70,7 +88,7 @@ namespace HBMarsRoverProject.Test
         [TestCase(1, 2, "N")]
         public void Rover_ResetTest(int x, int y, string direction)
         {
-            Rover rover = new Rover(x, y, direction);
+            Rover rover = new Rover(_plateau,x, y, direction);
 
 
             rover.Reset();

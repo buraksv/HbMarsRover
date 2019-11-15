@@ -1,35 +1,54 @@
 ﻿using System;
-using HBMarsRoverProject.Business.Abstracts; 
+using HBMarsRoverProject.Business.Abstracts;
 using HBMarsRoverProject.Entity;
 
 namespace HBMarsRoverProject.Business.Implementations
 {
-    public class Rover:IRover
-    { 
-        public Rover() { }
-        public Rover(int x,int y,string direction)
+    public class Rover : IRover
+    {
+        private readonly IPlateau _plateau;
+
+        public Rover(IPlateau plateau)
+        {
+            _plateau = plateau;
+
+        }
+        public Rover(IPlateau plateau, int x, int y, string direction)
         {
             CurrentCoordinate = new Coordinate(x, y, direction);
-        
+            _plateau = plateau;
+
         }
 
         public Coordinate CurrentCoordinate { get; private set; }
 
+        public bool IsInBoundaries
+        {
+            get => CurrentCoordinate.X <= _plateau.CurrentDimension.X && CurrentCoordinate.Y <= _plateau.CurrentDimension.Y;
+        }
+
         public void Command(char command)
         {
-            if (command == 'M')
+            switch (command)
             {
-                Move();
+                case 'M':
+                    Move();
+
+                    break;
+
+                case 'L':
+                    TurnLeft();
+                    break;
+                case 'R':
+                    TurnRight();
+
+                    break;
+                default:
+                    throw new ArgumentException($"Invalid Command"); 
             }
-            else if(command=='L')
-            {
-                Turn(EnumRotation.Left);
-            }
-            else if (command == 'R')
-            {
-                Turn(EnumRotation.Right);
-            }
- 
+
+
+
         }
 
         public void Reset()
@@ -55,44 +74,49 @@ namespace HBMarsRoverProject.Business.Implementations
                 case EnumDirection.W:
                     CurrentCoordinate.X--;
                     break;
-                default:
-                    break;
             }
-             
+
         }
 
         public void Relocation(Coordinate coordinate)
         {
             CurrentCoordinate = coordinate;
-             
-             
+
+
         }
 
-        public void Turn(EnumRotation rotation)
+        public void TurnLeft()
         {
             int currentPosition = (int)CurrentCoordinate.Direction;
 
-            switch (rotation)
-            {
-                case EnumRotation.Left:
-                    currentPosition--;
-                    if (currentPosition < 1)
-                        currentPosition = 4;
-                    break;
-                case EnumRotation.Right:
-                    currentPosition++;
-                    if (currentPosition > 4)
-                        currentPosition = 1;
-                    break;
-                default:
-                    currentPosition = 1;
-                    break;
-            }
+            currentPosition--;
+            if (currentPosition < 1)
+                currentPosition = 4;
 
             CurrentCoordinate.Direction = (EnumDirection)currentPosition;
-              
+
         }
 
-   
+        public void TurnRight()
+        {
+            int currentPosition = (int)CurrentCoordinate.Direction;
+
+            currentPosition++;
+            if (currentPosition > 4)
+                currentPosition = 1;
+
+            CurrentCoordinate.Direction = (EnumDirection)currentPosition;
+
+        }
+
+        public override string ToString()
+        {
+            string returnCoordinates = $"{CurrentCoordinate.X} {CurrentCoordinate.Y} {CurrentCoordinate.Direction}";
+
+            if (!IsInBoundaries)
+                returnCoordinates = $"Rover outside the plateau.Rover current position : {returnCoordinates}. Plateau current limit: {_plateau}";
+
+            return returnCoordinates;
+        }
     }
 }

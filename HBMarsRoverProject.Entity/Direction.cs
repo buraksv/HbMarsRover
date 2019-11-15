@@ -2,15 +2,12 @@
 {
     public enum EnumDirection
     {
-        N=1,
+
+        N =1,
         E=2,
         S=3,
         W=4
     }
 
-    public enum EnumRotation
-    {
-        Left,
-        Right
-    }
+ 
 }

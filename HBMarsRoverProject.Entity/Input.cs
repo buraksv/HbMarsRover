@@ -15,6 +15,7 @@
 
             Coordinates=new Coordinate(roverCoordinateX,roverCoordinateY,roverCoordinateDirection);
         }
+         
         public string Location { get; set; }
         public string Directions { get; set; }
         public Coordinate Coordinates { get;  }

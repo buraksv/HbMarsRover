@@ -16,6 +16,7 @@ namespace HBMarsRoverProject.Business.Implementations
             };
         }
 
+     
         public Dimension CurrentDimension { get; }
 
         public void Resize(int x,int y)
@@ -23,6 +24,11 @@ namespace HBMarsRoverProject.Business.Implementations
             CurrentDimension.X = x;
             CurrentDimension.Y = y;
              
+        }
+
+        public override string ToString()
+        {
+            return $"{CurrentDimension.X}x{CurrentDimension.Y}";
         }
     }
 }

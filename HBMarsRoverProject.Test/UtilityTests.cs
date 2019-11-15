@@ -23,7 +23,7 @@ namespace HBMarsRoverProject.Test
 
             Input input = new Input(location,directions);
               
-            Assert.True(input.Run()== output);
+            Assert.True(input.Run(plateau)== output);
         }
  
 
